@@ -13,30 +13,33 @@ import java.util.Base64;
  *
  * @author pjseoane@qaantcap.com
  */
-public class loginREST {
-    private static final String marketID     = "ROFX";
-    private static final String endpoint     = "http://pbcp-remarket.cloud.primary.com.ar/";
-    private static final String usr          = "pjseoane232";
-    private static final String pswd         = "AiZkiC5#";
+public final class loginREST {
     
-    private static String msg="qaant Labs Developments - pjseoane@qaantcap.com";
+    public static String marketID;
+    public static String endpoint;
+    public static String usr;
+    public static String pswd;
+    public static String ticker;
+    
+    
     private static String url;
     private static String token=null;
+          
     
     loginREST() throws Exception{
-        System.out.println(msg);
-        System.out.println("Login to: "+endpoint);
+        //System.out.println(msg);
+        System.out.println("Login to: "+MainAccess.endpoint);
         System.out.println("Processing token...:");
         getToken();
     }        
 
-    public String getToken()throws Exception{
+    public static String getToken()throws Exception{
         if (token == null){
-            url=    endpoint+ "auth/getToken";
+            url=    MainAccess.endpoint+ "auth/getToken";
         
             URL obj = new URL(url);
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-            String userCredentials = usr+":"+pswd;
+            String userCredentials = MainAccess.usr+":"+MainAccess.pswd;
             String basicAuth = "Basic " + new String(Base64.getEncoder().encode(userCredentials.getBytes()));
         
             con.setRequestMethod("POST");
@@ -58,7 +61,7 @@ public class loginREST {
         in = new BufferedReader(new InputStreamReader(con.getInputStream()));
         
         String inputline;
-        StringBuffer content = new StringBuffer();
+        StringBuilder content = new StringBuilder();
                 
         while ((inputline = in.readLine()) != null) {
             content.append(inputline);
@@ -69,12 +72,12 @@ public class loginREST {
         
     }
     public static String getInstruments()throws Exception{
-        url = endpoint+ "rest/instruments/all";
+        url = MainAccess.endpoint+ "rest/instruments/all";
         
         return doGET(url);
     }
     public static String getInstrumentDetail(String symbol)throws Exception{
-        url = endpoint + "rest/instruments/detail?symbol=" + symbol + "&marketId=" + marketID;
+        url = MainAccess.endpoint + "rest/instruments/detail?symbol=" + symbol + "&marketId=" + MainAccess.marketID;
         return doGET(url);
     }
 }
