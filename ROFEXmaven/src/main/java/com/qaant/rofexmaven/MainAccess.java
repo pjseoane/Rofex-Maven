@@ -1,7 +1,7 @@
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
- * and open the template in the editor. Test 1
+ * and open the template in the editor. Test 1· branch2
  */
 package com.qaant.rofexmaven;
 
@@ -49,6 +49,7 @@ public class MainAccess {
         // print outputs
         System.out.println("\nREST Outputs:....");
         System.out.println("\nREST Version:...."+version);
+        System.out.println("\nurl:............."+endpoint);
         System.out.println("\nTOKEN->>>>>>>>>>:"+loginREST.getToken());
             
         String instruments =loginREST.getInstruments();
